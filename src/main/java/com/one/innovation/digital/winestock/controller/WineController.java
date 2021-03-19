@@ -2,7 +2,6 @@ package com.one.innovation.digital.winestock.controller;
 
 import com.one.innovation.digital.winestock.dto.QuantityDTO;
 import com.one.innovation.digital.winestock.dto.WineDTO;
-import com.one.innovation.digital.winestock.entity.Wine;
 import com.one.innovation.digital.winestock.exception.WineAlreadyRegisteredException;
 import com.one.innovation.digital.winestock.exception.WineNotFoundException;
 import com.one.innovation.digital.winestock.exception.WineStockExceededException;
@@ -74,7 +73,7 @@ public class WineController implements WineControllerDocs {
 
 
     @PutMapping("/{id}")
-    public Wine update(@PathVariable Long id, @RequestBody WineDTO wineDTO) throws WineNotFoundException {
+    public WineDTO update(@PathVariable Long id, @RequestBody WineDTO wineDTO) throws WineNotFoundException {
         return wineService.update(id, wineDTO);
     }
 }

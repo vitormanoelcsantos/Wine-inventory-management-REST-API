@@ -80,11 +80,12 @@ public class WineService {
         throw new WineStockExceededException(id, quantityToIncrement);
     }
 
-    public Wine update(Long id, WineDTO wineDTO) throws WineNotFoundException {
+    public WineDTO update(Long id, WineDTO wineDTO) throws WineNotFoundException {
         verifyIfExists(id);
         Wine wine = wineMapper.toModel(wineDTO);
         wine.setId(id);
         Wine updatedWine = wineRepository.save(wine);
-        return wineRepository.save(updatedWine);
+        Wine wineUpdated = wineRepository.save(updatedWine);
+        return wineMapper.toDTO(wineUpdated);
     }
 }

@@ -203,4 +203,33 @@ public class WineControllerTest {
                 .andExpect(jsonPath("$.quantity", is(wineDTO.getQuantity())));
     }
 
+    @Test
+    void whenUPDATEIsCalledWithAValidIdThenOKStatusIsReturned() throws Exception {
+        // given
+        WineDTO wineDTO = WineDTOBuilder.builder().build().toWineDTO();
+
+        // when
+        when(wineService.update(wineDTO.getId(), wineDTO)).thenReturn(wineDTO);
+
+        // then
+        mockMvc.perform(put(WINE_API_URL_PATH +"/"+ VALID_WINE_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(wineDTO)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void whenUPDATEIsCalledWithAInValidIdThenNotFoundStatusIsReturned() throws Exception {
+        // given
+        WineDTO wineDTO = WineDTOBuilder.builder().build().toWineDTO();
+
+        // when
+        doThrow(WineNotFoundException.class).when(wineService).update(INVALID_WINE_ID, wineDTO);
+
+        // then
+        mockMvc.perform(put(WINE_API_URL_PATH +"/"+ INVALID_WINE_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(wineDTO)))
+                .andExpect(status().isNotFound());
+    }
 }

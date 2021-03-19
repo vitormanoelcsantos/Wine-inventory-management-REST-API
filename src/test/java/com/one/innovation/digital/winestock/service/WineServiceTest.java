@@ -165,7 +165,7 @@ public class WineServiceTest {
     }
 
     @Test
-    void whenUpdateWineIsCalledWithValidIdThenAWineShouldBeUpdated() throws WineNotFoundException {
+    void whenUpdateWineIsCalledWithAValidIdThenAWineShouldBeUpdated() throws WineNotFoundException {
         // given
         WineDTO expectedUpdatedWineDTO = WineDTOBuilder.builder().build().toWineDTO();
         Wine expectedUpdateWine = wineMapper.toModel(expectedUpdatedWineDTO);
