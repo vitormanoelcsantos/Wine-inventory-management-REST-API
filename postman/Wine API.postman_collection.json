@@ -1,116 +1,162 @@
 {
-  "variables": [],
   "info": {
+    "_postman_id": "96f34e14-7a67-4752-a6ec-22f39a073b00",
     "name": "Wine API",
-    "_postman_id": "2310266f-1c5d-0bd8-e78f-39e9340d8f95",
-    "description": "",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "List Wines",
+      "name": "List Wine",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
-        "url": "http://localhost:8080/api/v1/wines",
         "method": "GET",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1OTE2NzAwODgsImlhdCI6MTU5MTY1MjA4OH0.j6nd_s7VFvPVbh4abKrjeaYxgmDCxMxc0O18lPz2juONf3zvKBO7vx-w2WO2b_BJnOl5vAI_5DLg5RrgIZ5WEg",
-            "description": ""
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
           }
-        ],
-        "body": {},
-        "description": ""
+        },
+        "url": {
+          "raw": "localhost:8080/api/v1/wines",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "wines"
+          ]
+        }
       },
       "response": []
     },
     {
       "name": "Create Wine",
       "request": {
-        "url": "http://localhost:8080/api/v1/wines",
         "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json",
-            "description": ""
-          }
-        ],
+        "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n\t\"name\": \"Sauvignon Blanc\",\n\t\"brand\": \"De Martino\",\n\t\"max\": 20,\n\t\"quantity\": 10,\n\t\"type\": \"WHITEWINE\"\n}"
+          "raw": "{\r\n    \"name\":\"Sauvignon Blanc\",\r\n    \"brand\":\"Urmeneta\",\r\n    \"max\":20,\r\n    \"quantity\":10,\r\n    \"type\":\"WHITEWINE\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
-        "description": ""
+        "url": {
+          "raw": "localhost:8080/api/v1/wines",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "wines"
+          ]
+        }
       },
       "response": []
     },
     {
-      "name": "Get wine by name",
+      "name": "Get Wine by name",
       "request": {
-        "url": "http://localhost:8080/api/v1/wines/Sauvignon Blanc",
         "method": "GET",
         "header": [],
-        "body": {},
-        "description": ""
+        "url": {
+          "raw": "localhost:8080/api/v1/wines/Sauvignon Blanc",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "wines",
+            "Sauvignon Blanc"
+          ]
+        }
       },
       "response": []
     },
     {
-      "name": "Delete wine by id",
+      "name": "Delete Wine by Id",
       "request": {
-        "url": "http://localhost:8080/api/v1/wines/1",
         "method": "DELETE",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json",
-            "description": ""
-          }
-        ],
-        "body": {},
-        "description": ""
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/v1/wines/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "wines",
+            "1"
+          ]
+        }
       },
       "response": []
     },
     {
-      "name": "Increment wine stock",
+      "name": "Update Wine by Id",
       "request": {
-        "url": "http://localhost:8080/api/v1/wines/1/increment",
-        "method": "PATCH",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json",
-            "description": ""
-          }
-        ],
+        "method": "PUT",
+        "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n\t\"quantity\": 2\n}"
+          "raw": "{\r\n    \"name\":\"Sangiovese\",\r\n    \"brand\":\"Terre Alegre\",\r\n    \"max\":20,\r\n    \"quantity\":10,\r\n    \"type\":\"ROSEWINE\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
-        "description": ""
+        "url": {
+          "raw": "localhost:8080/api/v1/wines/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "wines",
+            "1"
+          ]
+        }
       },
       "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
     },
     {
-      "name": "Decrement wine stock",
-      "request": {
-        "url": "http://localhost:8080/api/v1/wines/1/decrement",
-        "method": "PATCH",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json",
-            "description": ""
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"quantity\": 2\n}"
-        },
-        "description": ""
-      },
-      "response": []
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
     }
   ]
 }
