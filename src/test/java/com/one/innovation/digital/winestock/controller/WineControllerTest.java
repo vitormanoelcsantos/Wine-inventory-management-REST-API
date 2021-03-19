@@ -219,7 +219,7 @@ public class WineControllerTest {
     }
 
     @Test
-    void whenUPDATEIsCalledWithAInValidIdThenNotFoundStatusIsReturned() throws Exception {
+    void whenUPDATEIsCalledWithAInvalidIdThenNotFoundStatusIsReturned() throws Exception {
         // given
         WineDTO wineDTO = WineDTOBuilder.builder().build().toWineDTO();
 
