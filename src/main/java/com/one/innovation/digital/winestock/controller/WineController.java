@@ -2,6 +2,7 @@ package com.one.innovation.digital.winestock.controller;
 
 import com.one.innovation.digital.winestock.dto.QuantityDTO;
 import com.one.innovation.digital.winestock.dto.WineDTO;
+import com.one.innovation.digital.winestock.entity.Wine;
 import com.one.innovation.digital.winestock.exception.WineAlreadyRegisteredException;
 import com.one.innovation.digital.winestock.exception.WineNotFoundException;
 import com.one.innovation.digital.winestock.exception.WineStockExceededException;
@@ -11,15 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -77,5 +70,11 @@ public class WineController implements WineControllerDocs {
     @PatchMapping("/{id}/increment")
     public WineDTO increment(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws WineNotFoundException, WineStockExceededException {
         return wineService.increment(id, quantityDTO.getQuantity());
+    }
+
+
+    @PutMapping("/{id}")
+    public Wine update(@PathVariable Long id, @RequestBody WineDTO wineDTO) throws WineNotFoundException {
+        return wineService.update(id, wineDTO);
     }
 }
