@@ -78,5 +78,4 @@ public class WineController implements WineControllerDocs {
     public WineDTO increment(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws WineNotFoundException, WineStockExceededException {
         return wineService.increment(id, quantityDTO.getQuantity());
     }
-
 }

@@ -157,6 +157,9 @@ public class WineServiceTest {
         // then
         wineService.deleteById(expectedDeletedWineDTO.getId());
 
+        /** Como a função para deletar um vinho não retorna nada, queremos comprovar que os métodos estão sendo
+         * utilizados, então usaremos o verify para fazer a verificação do método.
+         */
         verify(wineRepository, times(1)).findById(expectedDeletedWineDTO.getId());
         verify(wineRepository, times(1)).deleteById(expectedDeletedWineDTO.getId());
     }
