@@ -1,5 +1,6 @@
 package com.one.innovation.digital.winestock.entity;
 
+import com.one.innovation.digital.winestock.dto.WineDTO;
 import com.one.innovation.digital.winestock.enums.WineType;
 import lombok.AllArgsConstructor;
 import lombok.Data;

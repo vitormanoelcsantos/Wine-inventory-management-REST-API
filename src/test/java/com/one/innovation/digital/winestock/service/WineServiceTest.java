@@ -33,7 +33,7 @@ dos nossos objetos mocks para o teste.
  */
 public class WineServiceTest {
 
-    private static final long INVALID_WINE_ID = 1L;
+    private static final long INVALID_WINE_ID = 2L;
 
     @Mock
     /** @Mock Diz que iremos querer criar um mock daquela classe. No caso, estamos querendo
@@ -164,4 +164,31 @@ public class WineServiceTest {
         verify(wineRepository, times(1)).deleteById(expectedDeletedWineDTO.getId());
     }
 
+    @Test
+    void whenUpdateWineIsCalledWithValidIdThenAWineShouldBeUpdated() throws WineNotFoundException {
+        // given
+        WineDTO expectedUpdatedWineDTO = WineDTOBuilder.builder().build().toWineDTO();
+        Wine expectedUpdateWine = wineMapper.toModel(expectedUpdatedWineDTO);
+
+        // when
+        when(wineRepository.findById(expectedUpdatedWineDTO.getId())).thenReturn(Optional.of(expectedUpdateWine));
+
+        // then
+        wineService.update(expectedUpdatedWineDTO.getId(), expectedUpdatedWineDTO);
+    }
+
+    @Test
+    void whenUpdateWineIsCalledWithAInvalidIdThenThrowAException(){
+        // given
+        WineDTO expectedUpdatedWineDTO = WineDTOBuilder.builder().build().toWineDTO();
+        Wine expectedUpdateWine = wineMapper.toModel(expectedUpdatedWineDTO);
+
+        // when
+        when(wineRepository.findById(expectedUpdatedWineDTO.getId())).thenReturn(Optional.empty());
+
+        // then
+        assertThrows(WineNotFoundException.class, () -> wineService.update(expectedUpdateWine.getId(),
+                expectedUpdatedWineDTO));
+
+    }
 }

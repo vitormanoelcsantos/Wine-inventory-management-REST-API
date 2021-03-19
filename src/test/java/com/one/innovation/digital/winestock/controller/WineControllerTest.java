@@ -3,6 +3,7 @@ package com.one.innovation.digital.winestock.controller;
 import com.one.innovation.digital.winestock.builder.WineDTOBuilder;
 import com.one.innovation.digital.winestock.dto.QuantityDTO;
 import com.one.innovation.digital.winestock.dto.WineDTO;
+import com.one.innovation.digital.winestock.entity.Wine;
 import com.one.innovation.digital.winestock.exception.WineNotFoundException;
 import com.one.innovation.digital.winestock.service.WineService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -200,4 +202,5 @@ public class WineControllerTest {
                 .andExpect(jsonPath("$.type", is(wineDTO.getType().toString())))
                 .andExpect(jsonPath("$.quantity", is(wineDTO.getQuantity())));
     }
+
 }
