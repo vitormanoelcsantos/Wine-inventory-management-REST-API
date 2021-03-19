@@ -1,12 +1,12 @@
 package com.one.innovation.digital.winestock.builder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.one.innovation.digital.winestock.dto.WineDTO;
 import com.one.innovation.digital.winestock.enums.WineType;
 import lombok.Builder;
 
+/** Essa classe é utilizada apenas para testes.*/
+/** Padrão Builder é muito utilizado para testes,
+ *  porque nos auxilia retornando um Objeto com todos os valores preenchidos. */
 @Builder
 public class WineDTOBuilder {
 
@@ -29,7 +29,8 @@ public class WineDTOBuilder {
     private WineType type = WineType.REDWINE;
 
     public WineDTO toWineDTO() {
-        return new WineDTO(id,
+        return new WineDTO(
+                id,
                 name,
                 brand,
                 max,

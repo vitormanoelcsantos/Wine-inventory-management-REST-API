@@ -21,12 +21,13 @@ import javax.persistence.Id;
 public class Wine {
 
     @Id // @Id Informa ao JPA qual campo é identificado como chave primária de uma tabela.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) /** @GeneratedValue      é utilizada para informar
-     que a geração do valor do identificador único da entidade será gerenciada pelo provedor de persistência.
-     Identity: Informamos ao provedor de persistência que os valores a serem atribuídos ao identificador único
-     serão gerados pela coluna de auto incremento do banco de dados. Assim, um valor para o identificador é
-     gerado para cada registro inserido no banco.
-    */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /** @GeneratedValue é utilizada para informar
+    que a geração do valor do identificador único da entidade será gerenciada pelo provedor de persistência.
+    Identity: Informamos ao provedor de persistência que os valores a serem atribuídos ao identificador único
+    serão gerados pela coluna de auto incremento do banco de dados. Assim, um valor para o identificador é
+    gerado para cada registro inserido no banco.
+     */
     private Long id;
 
 

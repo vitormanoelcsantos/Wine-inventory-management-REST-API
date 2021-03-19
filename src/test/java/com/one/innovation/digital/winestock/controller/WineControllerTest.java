@@ -27,6 +27,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,11 +51,15 @@ public class WineControllerTest {
 
     @BeforeEach
     void setUp() {
+        /** Esse metódo será executado sempre antes de cada teste.
+         * Ele é responsável por transformar o mock em Jackson
+         */
         mockMvc = MockMvcBuilders.standaloneSetup(wineController)
                 .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
                 .setViewResolvers((s, locale) -> new MappingJackson2JsonView())
                 .build();
     }
+
 
     @Test
     void whenPOSTIsCalledThenAWineIsCreated() throws Exception {
@@ -65,6 +70,8 @@ public class WineControllerTest {
         when(wineService.createWine(wineDTO)).thenReturn(wineDTO);
 
         // then
+        /** Estamos transformando o corpo do Objeto de teste em um Json para ser testado.
+         */
         mockMvc.perform(post(WINE_API_URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(wineDTO)))
@@ -96,7 +103,7 @@ public class WineControllerTest {
         when(wineService.findByName(wineDTO.getName())).thenReturn(wineDTO);
 
         // then
-        mockMvc.perform(MockMvcRequestBuilders.get(WINE_API_URL_PATH + "/" + wineDTO.getName())
+        mockMvc.perform(get(WINE_API_URL_PATH + "/" + wineDTO.getName())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(wineDTO.getName())))
@@ -113,7 +120,7 @@ public class WineControllerTest {
         when(wineService.findByName(wineDTO.getName())).thenThrow(WineNotFoundException.class);
 
         // then
-        mockMvc.perform(MockMvcRequestBuilders.get(WINE_API_URL_PATH + "/" + wineDTO.getName())
+        mockMvc.perform(get(WINE_API_URL_PATH + "/" + wineDTO.getName())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -127,7 +134,7 @@ public class WineControllerTest {
         when(wineService.listAll()).thenReturn(Collections.singletonList(wineDTO));
 
         // then
-        mockMvc.perform(MockMvcRequestBuilders.get(WINE_API_URL_PATH)
+        mockMvc.perform(get(WINE_API_URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name", is(wineDTO.getName())))
@@ -144,7 +151,7 @@ public class WineControllerTest {
         when(wineService.listAll()).thenReturn(Collections.singletonList(wineDTO));
 
         // then
-        mockMvc.perform(MockMvcRequestBuilders.get(WINE_API_URL_PATH)
+        mockMvc.perform(get(WINE_API_URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -158,7 +165,7 @@ public class WineControllerTest {
         doNothing().when(wineService).deleteById(wineDTO.getId());
 
         // then
-        mockMvc.perform(MockMvcRequestBuilders.delete(WINE_API_URL_PATH + "/" + wineDTO.getId())
+        mockMvc.perform(delete(WINE_API_URL_PATH + "/" + wineDTO.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
@@ -169,7 +176,7 @@ public class WineControllerTest {
         doThrow(WineNotFoundException.class).when(wineService).deleteById(INVALID_WINE_ID);
 
         // then
-        mockMvc.perform(MockMvcRequestBuilders.delete(WINE_API_URL_PATH + "/" + INVALID_WINE_ID)
+        mockMvc.perform(delete(WINE_API_URL_PATH + "/" + INVALID_WINE_ID)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -185,7 +192,7 @@ public class WineControllerTest {
 
         when(wineService.increment(VALID_WINE_ID, quantityDTO.getQuantity())).thenReturn(wineDTO);
 
-        mockMvc.perform(MockMvcRequestBuilders.patch(WINE_API_URL_PATH + "/" + VALID_WINE_ID + WINE_API_SUBPATH_INCREMENT_URL)
+        mockMvc.perform(patch(WINE_API_URL_PATH + "/" + VALID_WINE_ID + WINE_API_SUBPATH_INCREMENT_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(quantityDTO))).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(wineDTO.getName())))

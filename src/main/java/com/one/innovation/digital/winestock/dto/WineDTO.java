@@ -16,9 +16,11 @@ import javax.validation.constraints.Size;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WineDTO { /** Classe responsável por adicionar algumas validações para não sobrecarregar a classe
- de entidades e não deixar ela com uma responsabilidade única com o banco de dados.
- */
+public class WineDTO {
+    /**
+     * Classe responsável por adicionar algumas validações para não sobrecarregar a classe
+     * de entidades e não deixar ela com uma responsabilidade única com o banco de dados.
+     */
 
     private Long id;
 

@@ -15,16 +15,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service /** @Serivce Marcamos beans com @Service para indicar que ele está mantendo a lógica de negócios.
- Não há outra especialidade, além do uso na camada de serviço. Indica que essa classe também será gerenciada
- pelo Spring. Permitindo também o uso do Autowired.
+@Service
+/** @Serivce Marcamos beans com @Service para indicar que ele está mantendo a lógica de negócios.
+Não há outra especialidade, além do uso na camada de serviço. Indica que essa classe também será gerenciada
+pelo Spring. Permitindo também o uso do Autowired.
  */
-@AllArgsConstructor(onConstructor = @__(@Autowired)) /** Cria uma construtor e implicitamente o passa como
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+/** Cria uma construtor e implicitamente o passa como
  @Autowired. Para que possa ser utilizado, é necessário que a classe se torne um bean Spring. Através do
  @Component ou uma de suas especializações: @Respository, @Service, @Controller.
  O Spring tratará todo o ciclo de vida (Instanciar, utilizar e destruir) toda vez que o Service for instanciado.
  */
-public class WineService{
+public class WineService {
 
     private final WineRepository wineRepository;
 

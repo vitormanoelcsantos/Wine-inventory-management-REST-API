@@ -12,9 +12,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -25,21 +27,41 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+/** @ExtendWith Diz a classe que você a quer criar e extender
+o que você deseja. Então, estamos dizendo que iremos querer extender o Mocikto, para a criação
+dos nossos objetos mocks para o teste.
+ */
 public class WineServiceTest {
 
     private static final long INVALID_WINE_ID = 1L;
 
     @Mock
+    /** @Mock Diz que iremos querer criar um mock daquela classe. No caso, estamos querendo
+    utilizar as funções do repositório, mas não o queremos instanciar diretamente na classe.
+     */
     private WineRepository wineRepository;
 
     private WineMapper wineMapper = WineMapper.INSTANCE;
+    /**
+     * Essa instância não é recebe a anotação
+     *
+     * @Mock porque o Mapper já é inserido automaticamente dentro da Classse Service como uma constante.
+     */
 
     @InjectMocks
+    /** @InjectMocks Injeta o Mock dentro da instância daquela classe.
+     */
     private WineService wineService;
 
+    /**
+     * Utilizando When/Then para nomeclatura dos métodos
+     */
     @Test
     void whenWineInformedThenItShouldBeCreated() throws WineAlreadyRegisteredException {
         // given
+        /** Utilizando o padrão Builder, para simular um dado de entrada.
+         * Onde na primeira variável estamos construindo o Objeto.
+         * E na segunda, estaremos criando a entidade Vinho. */
         WineDTO expectedWineDTO = WineDTOBuilder.builder().build().toWineDTO();
         Wine expectedSavedWine = wineMapper.toModel(expectedWineDTO);
 

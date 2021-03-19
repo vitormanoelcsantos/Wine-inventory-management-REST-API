@@ -26,12 +26,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-@RestController/** @RestController indica que é um Controller ao Spring, porém voltada ao padrão REST API.
- Onde não iremos lidar com a parte de view, de resolver, com toda essa parte de visualização. Através de uma
- simples troca de dados, por Json ou XML. Recomendo mudar para @Controller, caso trabalhe com a parte visual.
+@RestController
+/** @RestController indica que é um Controller ao Spring, porém voltada ao padrão REST API.
+Onde não iremos lidar com a parte de view, de resolver, com toda essa parte de visualização. Através de uma
+simples troca de dados, por Json ou XML. Recomendo mudar para @Controller, caso trabalhe com a parte visual.
  */
-@RequestMapping("/api/v1/wines") /** @RequestMapping indica qual será o caminho padrão sempre utilizado
- quando formos pesquisar no navegador
+@RequestMapping("/api/v1/wines")
+/** @RequestMapping indica qual será o caminho padrão sempre utilizado
+quando formos pesquisar no navegador
  */
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class WineController implements WineControllerDocs {
@@ -39,29 +41,34 @@ public class WineController implements WineControllerDocs {
 
     private final WineService wineService;
 
-    @PostMapping /** @PostMapping Mapeará o método como um método Post do verbo HTTP. Onde passaremos um corpo
- pela requisição.
- */
+    @PostMapping
+    /** @PostMapping Mapeará o método como um método Post do verbo HTTP. Onde passaremos um corpo
+    pela requisição.
+     */
     @ResponseStatus(HttpStatus.CREATED)
     public WineDTO createWine(@RequestBody @Valid WineDTO wineDTO) throws WineAlreadyRegisteredException {
         return wineService.createWine(wineDTO);
     }
 
-    @GetMapping("/{name}") /** Maperá o método com um método Get do verbo HTTP. Onde solicitaremos
-uma resposta de acordo com o nome.
-*/
+    @GetMapping("/{name}")
+    /** Maperá o método com um método Get do verbo HTTP. Onde solicitaremos
+     uma resposta de acordo com o nome.
+     */
     public WineDTO findByName(@PathVariable String name) throws WineNotFoundException {
         return wineService.findByName(name);
     }
-    @GetMapping /** Listará os vinhos.
- */
+
+    @GetMapping
+    /** Listará os vinhos.
+     */
     public List<WineDTO> listWines() {
         return wineService.listAll();
     }
 
-    @DeleteMapping("/{id}") /** @DeleteMapping Mapeará o método com um método Delete do verbo HTTP. Onde solicitaremos
- uma exclusão através do id.
- */
+    @DeleteMapping("/{id}")
+    /** @DeleteMapping Mapeará o método com um método Delete do verbo HTTP. Onde solicitaremos
+    uma exclusão através do id.
+     */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) throws WineNotFoundException {
         wineService.deleteById(id);
