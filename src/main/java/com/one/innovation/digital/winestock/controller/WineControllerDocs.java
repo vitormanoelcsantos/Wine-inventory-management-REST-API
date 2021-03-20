@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -41,4 +42,11 @@ public interface WineControllerDocs {
             @ApiResponse(code = 404, message = "Wine with given id not found.")
     })
     void deleteById(@PathVariable Long id) throws WineNotFoundException;
+
+    @ApiOperation(value = "Update a wine by a given valid Id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success wine updated in system"),
+            @ApiResponse(code = 404, message = "Wine with given Id not found.")
+    })
+    WineDTO update(@PathVariable Long id, @RequestBody WineDTO wineDTO) throws WineNotFoundException;
 }

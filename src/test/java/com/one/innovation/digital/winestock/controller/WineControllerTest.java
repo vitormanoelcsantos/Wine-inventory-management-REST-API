@@ -184,26 +184,6 @@ public class WineControllerTest {
     }
 
     @Test
-    void whenPATCHIsCalledToIncrementDiscountThenOKstatusIsReturned() throws Exception {
-        QuantityDTO quantityDTO = QuantityDTO.builder()
-                .quantity(10)
-                .build();
-
-        WineDTO wineDTO = WineDTOBuilder.builder().build().toWineDTO();
-        wineDTO.setQuantity(wineDTO.getQuantity() + quantityDTO.getQuantity());
-
-        when(wineService.increment(VALID_WINE_ID, quantityDTO.getQuantity())).thenReturn(wineDTO);
-
-        mockMvc.perform(patch(WINE_API_URL_PATH + "/" + VALID_WINE_ID + WINE_API_SUBPATH_INCREMENT_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(quantityDTO))).andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(wineDTO.getName())))
-                .andExpect(jsonPath("$.brand", is(wineDTO.getBrand())))
-                .andExpect(jsonPath("$.type", is(wineDTO.getType().toString())))
-                .andExpect(jsonPath("$.quantity", is(wineDTO.getQuantity())));
-    }
-
-    @Test
     void whenUPDATEIsCalledWithAValidIdThenOKStatusIsReturned() throws Exception {
         // given
         WineDTO wineDTO = WineDTOBuilder.builder().build().toWineDTO();

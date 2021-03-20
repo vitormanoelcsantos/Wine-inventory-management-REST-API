@@ -4,7 +4,6 @@ import com.one.innovation.digital.winestock.dto.WineDTO;
 import com.one.innovation.digital.winestock.entity.Wine;
 import com.one.innovation.digital.winestock.exception.WineAlreadyRegisteredException;
 import com.one.innovation.digital.winestock.exception.WineNotFoundException;
-import com.one.innovation.digital.winestock.exception.WineStockExceededException;
 import com.one.innovation.digital.winestock.mapper.WineMapper;
 import com.one.innovation.digital.winestock.repository.WineRepository;
 import lombok.AllArgsConstructor;
@@ -52,6 +51,15 @@ public class WineService {
                 .collect(Collectors.toList());
     }
 
+
+    public WineDTO update(Long id, WineDTO wineDTO) throws WineNotFoundException{
+        verifyIfExists(id);
+        Wine wine = wineMapper.toModel(wineDTO);
+        wine.setId(id);
+        Wine updatedWine = wineRepository.save(wine);
+        return wineMapper.toDTO(updatedWine);
+    }
+
     public void deleteById(Long id) throws WineNotFoundException {
         verifyIfExists(id);
         wineRepository.deleteById(id);
@@ -67,25 +75,5 @@ public class WineService {
     private Wine verifyIfExists(Long id) throws WineNotFoundException {
         return wineRepository.findById(id)
                 .orElseThrow(() -> new WineNotFoundException(id));
-    }
-
-    public WineDTO increment(Long id, int quantityToIncrement) throws WineNotFoundException, WineStockExceededException {
-        Wine wineToIncrementStock = verifyIfExists(id);
-        int quantityAfterIncrement = quantityToIncrement + wineToIncrementStock.getQuantity();
-        if (quantityAfterIncrement <= wineToIncrementStock.getMax()) {
-            wineToIncrementStock.setQuantity(wineToIncrementStock.getQuantity() + quantityToIncrement);
-            Wine incrementedWineStock = wineRepository.save(wineToIncrementStock);
-            return wineMapper.toDTO(incrementedWineStock);
-        }
-        throw new WineStockExceededException(id, quantityToIncrement);
-    }
-
-    public WineDTO update(Long id, WineDTO wineDTO) throws WineNotFoundException {
-        verifyIfExists(id);
-        Wine wine = wineMapper.toModel(wineDTO);
-        wine.setId(id);
-        Wine updatedWine = wineRepository.save(wine);
-        Wine wineUpdated = wineRepository.save(updatedWine);
-        return wineMapper.toDTO(wineUpdated);
     }
 }

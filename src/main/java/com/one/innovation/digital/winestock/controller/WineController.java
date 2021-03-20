@@ -1,10 +1,8 @@
 package com.one.innovation.digital.winestock.controller;
 
-import com.one.innovation.digital.winestock.dto.QuantityDTO;
 import com.one.innovation.digital.winestock.dto.WineDTO;
 import com.one.innovation.digital.winestock.exception.WineAlreadyRegisteredException;
 import com.one.innovation.digital.winestock.exception.WineNotFoundException;
-import com.one.innovation.digital.winestock.exception.WineStockExceededException;
 import com.one.innovation.digital.winestock.service.WineService;
 
 import lombok.AllArgsConstructor;
@@ -66,14 +64,8 @@ public class WineController implements WineControllerDocs {
         wineService.deleteById(id);
     }
 
-    @PatchMapping("/{id}/increment")
-    public WineDTO increment(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws WineNotFoundException, WineStockExceededException {
-        return wineService.increment(id, quantityDTO.getQuantity());
-    }
-
-
     @PutMapping("/{id}")
-    public WineDTO update(@PathVariable Long id, @RequestBody WineDTO wineDTO) throws WineNotFoundException {
+    public WineDTO update(@PathVariable Long id, @RequestBody @Valid WineDTO wineDTO) throws WineNotFoundException{
         return wineService.update(id, wineDTO);
     }
 }
